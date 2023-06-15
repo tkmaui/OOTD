@@ -8,12 +8,10 @@ Rails.application.routes.draw do
   root to: "homes#top"
   get '/about' => 'homes#about'
   resources :outfits
-  get '/customers' => 'customers#index'
-  get '/customer' => 'customers#show'
   get '/customers/information/edit' => 'customers#edit'
   get '/customers/is_deleted' => 'customers#is_deleted'
   patch '/customers/destroy' => 'customers#destroy'
-  resource :customers, only: [:update]
+  resources :customers, only: [:index, :show, :update]
  end
  devise_for :customers,skip: [:passwords], controllers: {
   registrations: "public/registrations",
