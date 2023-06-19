@@ -14,9 +14,24 @@
     <header>
     <% if customer_signed_in? %>
       <li>
+        <%= link_to "マイページ", customer_path(current_customer.id) %>
+      </li>
+      <li>
+        <%= link_to "投稿一覧", outfits_path %>
+      </li>
+      <li>
+        <%= link_to "質問一覧", questions_path %>
+      </li>
+      <li>
         <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
       </li>
     <% else %>
+      <li>
+        <%= link_to "top", root_path %>
+      </li>
+      <li>
+        <%=link_to "about",about_path %>
+      </li>
       <li>
         <%= link_to "新規登録", new_customer_registration_path %>
       </li>

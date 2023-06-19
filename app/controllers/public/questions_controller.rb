@@ -29,6 +29,9 @@ class Public::QuestionsController < ApplicationController
   end
 
   def destroy
+    @question = Question(params[:id])
+    @question.destroy
+    redirect_to questions_path
   end
 
   private

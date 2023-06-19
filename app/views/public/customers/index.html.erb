@@ -2,4 +2,6 @@
 <div>
   <p>ニックネーム：<%= customer.nickname %></p>
 </div>
+<%= link_to "詳細", customer_path(customer.id) %>
 <% end %>
+
