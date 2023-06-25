@@ -5,4 +5,34 @@
   <% if @outfit.customer == current_customer %>
     <%= link_to "削除", outfit_path(@outfit), method: :delete %>
   <% end %>
+  <% if @outfit.favorited_by?(current_customer) %>
+    <p>
+      <%= link_to outfit_favorites_path(@outfit), method: :delete do %>
+        ♥<%= @outfit.favorites.count %> いいね
+      <% end %>
+    </p>
+    <% else %>
+    <p>
+      <%= link_to outfit_favorites_path(@outfit), method: :post do %>
+        ♡<%= @outfit.favorites.count %> いいね
+      <% end %>
+    </p>
+  <% end %>
+</div>
+
+<div>
+  <p>コメント件数：<%= @outfit.comments.count %></p>
+  <% @outfit.comments.each do |comment| %>
+    <%= comment.customer.nickname %>
+    <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
+    <% if comment.customer == current_customer %>
+      <%= link_to "削除", outfit_comment_path(comment.outfit, comment), method: :delete %>
+    <% end %>
+  <% end %>
+</div>
+<div>
+  <%= form_with model: [@outfit, @comment] do |f| %>
+    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+    <%= f.submit "送信する" %>
+  <% end %>
 </div>

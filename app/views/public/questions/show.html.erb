@@ -5,4 +5,35 @@
   <% if @question.customer == current_customer %>
     <%= link_to "削除", question_path(@question), method: :delete %>
   <% end %>
+  <% if @question.favorited_by?(current_customer) %>
+    <p>
+      <%= link_to question_question_favorites_path(@question), method: :delete do %>
+        ♥<%= @question.question_favorites.count %> いいね
+      <% end %>
+    </p>
+    <% else %>
+    <p>
+      <%= link_to question_question_favorites_path(@question), method: :post do %>
+        ♡<%= @question.question_favorites.count %> いいね
+      <% end %>
+    </p>
+  <% end %>
+</div>
+
+<div>
+  <p>コメント件数：<%= @question.answers.count %></p>
+  <% @question.answers.each do |answer| %>
+
+    <%= answer.customer.nickname %>
+    <%= answer.created_at.strftime('%Y/%m/%d') %><%= answer.answer %>
+    <% if answer.customer == current_customer %>
+      <%= link_to "削除", question_answer_path(answer.question, answer), method: :delete %>
+    <% end %>
+  <% end %>
+</div>
+<div>
+  <%= form_with model: [@question, @answer] do |f| %>
+    <%= f.text_area :answer, rows: '5', placeholder: "コメントをここに" %>
+    <%= f.submit "送信する" %>
+  <% end %>
 </div>

@@ -3,6 +3,7 @@
   <%= image_tag outfit.image, size: "250x200" %>
   <p>タイトル：<%= outfit.title %></p>
   <p>説明：<%= outfit.caption %></p>
+  <p><%= link_to "#{outfit.comments.count} コメント", outfit_path(outfit.id) %></p>
 </div>
 <%= link_to "詳細",outfit_path(outfit.id) %>
 <% end %>

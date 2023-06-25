@@ -9,6 +9,7 @@ class Public::OutfitsController < ApplicationController
 
   def show
     @outfit = Outfit.find(params[:id])
+    @comment = Comment.new
   end
 
   def edit

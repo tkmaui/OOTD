@@ -10,9 +10,14 @@ Rails.application.routes.draw do
  scope module: :public do
   root to: "homes#top"
   get '/about' => 'homes#about'
-  resources :questions
-  resources :outfits
-  #get '/customers/information/edit' => 'customers#edit'
+  resources :questions do
+   resources :answers, only: [:create, :destroy]
+   resource :question_favorites, only: [:create, :destroy]
+  end
+  resources :outfits do
+   resources :comments, only: [:create, :destroy]
+   resource :favorites, only: [:create, :destroy]
+  end
   get '/customers/is_deleted' => 'customers#is_deleted'
   patch '/customers/destroy' => 'customers#destroy'
   resources :customers, only: [:index, :show, :update, :edit]

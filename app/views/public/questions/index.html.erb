@@ -3,6 +3,7 @@
   <%= image_tag question.image, size: "250x200" %>
   <p>タイトル：<%= question.title %></p>
   <p>説明：<%= question.caption %></p>
+  <p><%= link_to "#{question.answers.count} コメント", question_path(question.id) %></p>
 </div>
 <%= link_to "詳細",question_path(question.id) %>
 <% end %>
