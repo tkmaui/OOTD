@@ -1,0 +1,4 @@
+<%= image_tag @question.image, size: "250x200" %>
+  <p>タイトル：<%= @question.title %></p>
+  <p>説明：<%= @question.caption %></p>
+  <%= link_to "削除", admin_question_path(@question.id), method: :delete %>

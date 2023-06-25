@@ -1,0 +1,9 @@
+<% @outfits.each do |outfit| %>
+<div>
+  <%= image_tag outfit.image, size: "250x200" %>
+  <p>タイトル：<%= outfit.title %></p>
+  <p>説明：<%= outfit.caption %></p>
+  <p><%= link_to "#{outfit.comments.count} コメント", admin_outfit_path(outfit.id) %></p>
+</div>
+<%= link_to "詳細", admin_outfit_path(outfit.id) %>
+<% end %>

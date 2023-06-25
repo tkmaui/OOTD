@@ -1,0 +1,13 @@
+<%= image_tag @outfit.image, size: "250x200" %>
+  <p>タイトル：<%= @outfit.title %></p>
+  <p>説明：<%= @outfit.caption %></p>
+  <%= link_to "削除", admin_outfit_path(@outfit.id), method: :delete %>
+
+  <div>
+  <p>コメント件数：<%= @outfit.comments.count %></p>
+  <% @outfit.comments.each do |comment| %>
+    <%= comment.customer.nickname %>
+    <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
+    <%= link_to "削除", admin_outfit_comment_path(comment.outfit, comment), method: :delete %>
+  <% end %>
+</div>
