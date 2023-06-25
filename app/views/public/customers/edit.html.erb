@@ -2,8 +2,10 @@
 <%= form_with model: @customer do |f| %>
   <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %>
   <%= f.text_field :nickname %>
-  <%= f.text_field :gender %>
-  <%= f.text_field :tall %>
+  <%#['表示される値' ,データに入る値] %>
+  <%= f.select :gender, [['男性', '男性'], ['女性', '女性'], ['その他', 'その他']], { include_blank: '性別を選択してください' } %>
+  <%#10~46の値を5倍して表示している %><%# to_sで(10..46).map{|i| [(i*5)の値を文字列にしてcmと揃える %><%# 右側の, i*5はデータに入れる値%>
+  <%= f.select :tall,  (10..46).map{|i| [(i*5).to_s + 'cm', i*5]} %>
   <%= f.text_field :introduction %>
   <%= f.submit "変更を保存" %>
 <% end %>
