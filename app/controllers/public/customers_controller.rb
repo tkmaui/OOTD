@@ -18,12 +18,16 @@ class Public::CustomersController < ApplicationController
     @customer = Customer.find(params[:id])
     @outfits = @customer.outfits
     @questions = @customer.questions
+    favorites = Favorite.where(customer_id: @customer.id).pluck(:outfit_id)
+    @favorite_outfits = Outfit.find(favorites)
   end
+
 
   def destroy
   end
 
   def is_deleted
+    puts "aaaaa"
   end
 
   private

@@ -15,7 +15,7 @@
     <a class="nav-link" id="item2-tab" data-toggle="tab" href="#item2" role="tab" aria-controls="item2" aria-selected="false">質問一覧</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="item3-tab" data-toggle="tab" href="#item3" role="tab" aria-controls="item3" aria-selected="false">Item#3</a>
+    <a class="nav-link" id="item3-tab" data-toggle="tab" href="#item3" role="tab" aria-controls="item3" aria-selected="false">いいね</a>
   </li>
 </ul>
 
@@ -40,5 +40,13 @@
       <%= link_to "詳細",question_path(question.id) %>
     <% end %>
   </div>
-  <div class="tab-pane fade" id="item3" role="tabpanel" aria-labelledby="item3-tab">This is a text of item#3.</div>
+  <div class="tab-pane fade" id="item3" role="tabpanel" aria-labelledby="item3-tab">
+    <p>いいねした投稿一覧</p>
+    <% @favorite_outfits.each do |outfit| %>
+    <%= image_tag outfit.image, size: "250x200" %>
+    <%= outfit.title %>
+    <%= outfit.caption %>
+    <%= link_to "詳細", outfit_path(outfit.id) %>
+    <% end %>
+  </div>
 </div>

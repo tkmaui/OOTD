@@ -18,9 +18,14 @@ Rails.application.routes.draw do
    resources :comments, only: [:create, :destroy]
    resource :favorites, only: [:create, :destroy]
   end
-  get '/customers/is_deleted' => 'customers#is_deleted'
-  patch '/customers/destroy' => 'customers#destroy'
-  resources :customers, only: [:index, :show, :update, :edit]
+  # get '/customers/is_deleted' => 'customers#is_deleted'
+  # patch '/customers/destroy' => 'customers#destroy'
+  resources :customers, only: [:index, :show, :update, :edit] do
+   member do
+    get :favorites
+    get :is_deleted
+   end
+  end
  end
 
  namespace :admin do
