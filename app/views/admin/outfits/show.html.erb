@@ -2,6 +2,7 @@
   <p>タイトル：<%= @outfit.title %></p>
   <p>説明：<%= @outfit.caption %></p>
   <%= link_to "削除", admin_outfit_path(@outfit.id), method: :delete %>
+  <p>♡<%= @outfit.favorites.count %> いいね</p>
 
   <div>
   <p>コメント件数：<%= @outfit.comments.count %></p>

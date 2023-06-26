@@ -27,7 +27,9 @@ Rails.application.routes.draw do
   resources :outfits, only: [:index, :show, :destroy] do
    resources :comments, only: [:destroy]
   end
-  resources :questions, only: [:index, :show, :destroy]
+  resources :questions, only: [:index, :show, :destroy] do
+   resources :answers, only: [:destroy]
+  end
  end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

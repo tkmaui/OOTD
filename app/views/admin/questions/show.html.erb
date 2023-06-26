@@ -1,4 +1,16 @@
 <%= image_tag @question.image, size: "250x200" %>
-  <p>タイトル：<%= @question.title %></p>
-  <p>説明：<%= @question.caption %></p>
-  <%= link_to "削除", admin_question_path(@question.id), method: :delete %>
+<p>タイトル：<%= @question.title %></p>
+<p>説明：<%= @question.caption %></p>
+<%= link_to "削除", admin_question_path(@question.id), method: :delete %>
+
+<p>♡<%= @question.question_favorites.count %> いいね</p>
+
+<div>
+  <p>コメント件数：<%= @question.answers.count %></p>
+  <% @question.answers.each do |answer| %>
+
+    <%= answer.customer.nickname %>
+    <%= answer.created_at.strftime('%Y/%m/%d') %><%= answer.answer %>
+    <%= link_to "削除", admin_question_answer_path(answer.question, answer), method: :delete %>
+  <% end %>
+</div>
