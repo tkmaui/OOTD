@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   resources :questions, only: [:index, :show, :destroy] do
    resources :answers, only: [:destroy]
   end
+  resources :customers, only: [:index, :show, :update, :edit]
  end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

@@ -5,6 +5,7 @@ class Public::QuestionsController < ApplicationController
 
   def index
     @questions = Question.all
+    @customers = Customer.all
   end
 
   def show

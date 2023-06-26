@@ -5,6 +5,7 @@ class Public::OutfitsController < ApplicationController
 
   def index
     @outfits = Outfit.all
+    @customers = Customer.all
   end
 
   def show

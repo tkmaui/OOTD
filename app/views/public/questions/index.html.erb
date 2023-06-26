@@ -7,3 +7,12 @@
 </div>
 <%= link_to "詳細",question_path(question.id) %>
 <% end %>
+
+<% @customers.each do |customer| %>
+<div>
+  <%= link_to customer_path(customer.id) do %>
+    <%= image_tag customer.get_profile_image(100,100) %>
+    <p><%= customer.nickname %></p>
+  <% end %>
+</div>
+<% end %>
