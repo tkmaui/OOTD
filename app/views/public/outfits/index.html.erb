@@ -1,18 +1,36 @@
-<% @outfits.each do |outfit| %>
-<div>
-  <%= image_tag outfit.image, size: "250x200" %>
-  <p>タイトル：<%= outfit.title %></p>
-  <p>説明：<%= outfit.caption %></p>
-  <p><%= link_to "#{outfit.comments.count} コメント", outfit_path(outfit.id) %></p>
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    <div class="col-md-9 mt-5">
+      <div class="row">
+      <% @outfits.each do |outfit| %>
+      <div class="pr-4 pb-5">
+        <div class="card">
+          <%= link_to outfit_path(outfit.id) do %>
+            <%= image_tag outfit.image, size: "260x400" %>
+          <% end %>
+          <div class="card-body">
+            <%= image_tag outfit.customer.get_profile_image(30,30), class:" rounded-circle" %>
+            <span><i class="fas fa-user"></i><%= outfit.customer.nickname %> ｜ </span>
+            <span><%= link_to "#{outfit.comments.count} コメント", outfit_path(outfit.id), class:"text-dark" %></span>
+          </div>
+        </div>
+       </div>
+       <% end %>
+       </div>
+    </div>
+    <div class="col-md-2 mt-5">
+      ユーザー
+      <% @customers.each do |customer| %>
+        <div crass="row">
+          <div class="mt-3">
+          <%= link_to customer_path(customer.id) do %>
+            <%= image_tag customer.get_profile_image(20,20) %>
+            <%= customer.nickname %>
+          <% end %>
+          </div>
+        </div>
+      <% end %>
+      <%= link_to "もっと見る", customers_path, class:"btn btn-outline-secondary" %>
+    </div>
+  </div>
 </div>
-<%= link_to "詳細",outfit_path(outfit.id) %>
-<% end %>
-
-<% @customers.each do |customer| %>
-<div>
-  <%= link_to customer_path(customer.id) do %>
-    <%= image_tag customer.get_profile_image(100,100) %>
-    <p><%= customer.nickname %></p>
-  <% end %>
-</div>
-<% end %>
