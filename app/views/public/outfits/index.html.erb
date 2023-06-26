@@ -9,7 +9,7 @@
             <%= image_tag outfit.image, size: "260x400" %>
           <% end %>
           <div class="card-body">
-            <%= image_tag outfit.customer.get_profile_image(30,30), class:" rounded-circle" %>
+            <%= image_tag outfit.customer.get_profile_image(35,35), class:" rounded-circle" %>
             <span><i class="fas fa-user"></i><%= outfit.customer.nickname %> ｜ </span>
             <span><%= link_to "#{outfit.comments.count} コメント", outfit_path(outfit.id), class:"text-dark" %></span>
           </div>
@@ -19,18 +19,18 @@
        </div>
     </div>
     <div class="col-md-2 mt-5">
-      ユーザー
+      <p>ユーザー</p>
       <% @customers.each do |customer| %>
         <div crass="row">
           <div class="mt-3">
           <%= link_to customer_path(customer.id) do %>
-            <%= image_tag customer.get_profile_image(20,20) %>
+            <%= image_tag customer.get_profile_image(30,30), class:" rounded-circle" %>
             <%= customer.nickname %>
           <% end %>
           </div>
         </div>
       <% end %>
-      <%= link_to "もっと見る", customers_path, class:"btn btn-outline-secondary" %>
+      <%= link_to "もっと見る", customers_path, class:"mt-3 btn btn-outline-secondary" %>
     </div>
   </div>
 </div>

@@ -27,7 +27,6 @@ class Public::CustomersController < ApplicationController
   end
 
   def is_deleted
-    puts "aaaaa"
   end
 
   private
