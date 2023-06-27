@@ -1,7 +1,9 @@
 <div class="container">
   <div class="row">
     <div class="col-md-3 mt-5">
-      <%= image_tag @customer.get_profile_image(200,400), class:" rounded-circle" %>
+      <% if @customer.profile_image.persisted? %>
+        <%= image_tag @customer.profile_image, size: "200x200", class:" rounded-circle" %>
+      <% end %>
       <% if @customer == current_customer %>
         <%= link_to "編集する", edit_customer_path(@customer.id), class:"btn btn-outline-secondary btn-block mt-3" %>
       <% end %>
@@ -12,7 +14,7 @@
         <%= @customer.gender %> |
         <%= @customer.tall %>cm
       </p>
-      <%= @customer.introduction %>
+      <%= simple_format(@customer.introduction) %>
     </div>
    </div>
 <ul class="nav nav-tabs mt-5" role="tablist">
@@ -34,7 +36,9 @@
        <div class="pr-3 pb-5">
         <div class="card">
           <%= link_to outfit_path(outfit.id) do %>
+            <% if outfit.image.persisted? %>
             <%= image_tag outfit.image, size: "267x370" %>
+            <% end %>
           <% end %>
           <div class="card-body">
             <button type="button" class="btn btn-outline-secondary"><i class="fa-solid fa-heart"></i><%= outfit.favorites.count %></button>

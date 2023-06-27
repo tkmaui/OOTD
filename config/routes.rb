@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   resources :outfits do
    resources :comments, only: [:create, :destroy]
    resource :favorites, only: [:create, :destroy]
+   collection do
+      get 'search'
+   end
   end
   # get '/customers/is_deleted' => 'customers#is_deleted'
   # patch '/customers/destroy' => 'customers#destroy'
@@ -24,6 +27,7 @@ Rails.application.routes.draw do
    member do
     get :favorites
     get :is_deleted
+    patch :withdraw
    end
   end
  end
