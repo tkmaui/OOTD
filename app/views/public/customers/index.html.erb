@@ -2,15 +2,15 @@
   <div class="row mt-5">
     <% @customers.each do |customer| %>
       <div class="pr-5 pb-5">
-        <div class="card">
+        <div class="card" style="height: 16rem;">
           <%= link_to customer_path(customer.id) do %>
             <% if customer.profile_image.persisted? %>
-              <%= image_tag customer.profile_image, size: "400x400" %>
+              <%= image_tag customer.profile_image, size: "160x160" %>
             <% end %>
           <% end %>
         <div class="card-body">
-          <p><%= customer.nickname %></p>
-          <p><%= customer.gender %></p>
+          <p class="text-center"><%= customer.nickname %></p>
+          <p class="small text-muted text-center"><%= customer.gender %>|<%= customer.tall %></p>
         </div>
         </div>
       </div>

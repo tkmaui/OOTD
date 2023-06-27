@@ -32,7 +32,7 @@
                   <%= image_tag comment.customer.profile_image, size: "30x30", class:" rounded-circle" %>
                   <%= comment.customer.nickname %>
                 </p>
-                <%= comment.comment %>
+                <%= simple_format(comment.comment) %>
                 <p class="small text-muted"><%= comment.created_at.strftime('%Y/%m/%d') %>
                 <% if comment.customer == current_customer %>
                   <%= link_to "削除", outfit_comment_path(comment.outfit, comment), method: :delete, class: "text-danger" %>
@@ -55,8 +55,8 @@
     <div class="col-md-5 mt-5">
       <div class="card" style="height: 40rem;">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item"><%= @outfit.title %></li>
-          <li class="list-group-item"><%= @outfit.caption %></li>
+          <li class="list-group-item"><%= simple_format(@outfit.title) %></li>
+          <li class="list-group-item"><%= simple_format(@outfit.caption) %></li>
         </ul>
       </div>
       <% if @outfit.customer == current_customer %>

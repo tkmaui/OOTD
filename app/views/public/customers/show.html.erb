@@ -32,8 +32,15 @@
 <div class="tab-content">
   <div class="tab-pane fade show active" id="item1" role="tabpanel" aria-labelledby="item1-tab">
     <div class="row">
+      <div class="mt-3">
+      <%= link_to new_outfit_path, class:"text-dark" do %>
+        <i class="fa-regular fa-square-plus fa-3x"></i>
+      <% end %>
+      </div>
+    </div>
+    <div class="row">
     <% @outfits.each do |outfit| %>
-       <div class="pr-3 pb-5">
+       <div class="pr-3 pb-5 mt-3">
         <div class="card">
           <%= link_to outfit_path(outfit.id) do %>
             <% if outfit.image.persisted? %>
@@ -52,6 +59,13 @@
     </div>
     </div>
   <div class="tab-pane fade" id="item2" role="tabpanel" aria-labelledby="item2-tab">
+    <div class="row">
+      <div class="mt-3">
+      <%= link_to new_question_path, class:"text-dark" do %>
+        <i class="fa-regular fa-square-plus fa-3x"></i>
+      <% end %>
+      </div>
+    </div>
     <% @questions.each do |question| %>
       <div>
         <%= image_tag question.image, size: "250x200" %>

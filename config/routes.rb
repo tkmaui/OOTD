@@ -21,8 +21,6 @@ Rails.application.routes.draw do
       get 'search'
    end
   end
-  # get '/customers/is_deleted' => 'customers#is_deleted'
-  # patch '/customers/destroy' => 'customers#destroy'
   resources :customers, only: [:index, :show, :update, :edit] do
    member do
     get :favorites

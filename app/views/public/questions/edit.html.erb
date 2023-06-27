@@ -1,10 +1,26 @@
-<h1>編集</h1>
-  <%= form_with model: @question do |f| %>
-    <h4>画像</h4>
+<div class="container">
+  <div class="row">
+    <h3 class="col-md-3 mt-5 offset-md-2">質問編集</h3>
+  </div>
+  <div class="row">
+    <div class="col-md-6 offset-md-3 mt-5">
+    <%= form_with model: @question do |f| %>
+      <p>画像</p>
       <%= f.file_field :image, accept: "image/*" %>
-    <h4>タイトル</h4>
-      <%= f.text_field :title %>
-    <h4>説明</h4>
-      <%= f.text_area :caption %>
-    <%= f.submit '投稿' %>
-  <% end %>
+      <p class="pt-4">タイトル</p>
+      <div class="form_group">
+        <%= f.text_field :title, placeholder: "タイトル", class: "form-control" %>
+      </div>
+      <p class="pt-4">コーディネートのポイント</p>
+      <div class="form-group" >
+        <%= f.text_area :caption, placeholder: "ポイント...", rows: 7, class: "form-control" %>
+      </div>
+      <div class="form-group row">
+        <div class="offset-md-1">
+          <%= f.submit '投稿', class:"btn btn-success" %>
+        </div>
+      </div>
+    <% end %>
+    </div>
+  </div>
+</div>
