@@ -1,40 +1,59 @@
-<div class="container">
-<div>
-  <%= image_tag @outfit.image, size: "250x200" %>
-  <p>タイトル：<%= @outfit.title %></p>
-  <p>説明：<%= @outfit.caption %></p>
-  <% if @outfit.customer == current_customer %>
-    <%= link_to "削除", outfit_path(@outfit), method: :delete %>
-  <% end %>
-  <% if @outfit.favorited_by?(current_customer) %>
-    <p>
-      <%= link_to outfit_favorites_path(@outfit), method: :delete do %>
-        ♥<%= @outfit.favorites.count %> いいね
-      <% end %>
-    </p>
-    <% else %>
-    <p>
-      <%= link_to outfit_favorites_path(@outfit), method: :post do %>
-        ♡<%= @outfit.favorites.count %> いいね
-      <% end %>
-    </p>
-  <% end %>
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    <div class="col-md-6 mt-5">
+      <div class="card">
+        <%= image_tag @outfit.image, size: "553x700" %>
+        <div class="card-body">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <% if @outfit.favorited_by?(current_customer) %>
+                  <%= link_to outfit_favorites_path(@outfit), method: :delete do %>
+                    <button type="button" class="btn btn-outline-secondary"><i class="fa-solid fa-heart"></i><%= @outfit.favorites.count %></button>
+                 <% end %>
+              <% else %>
+                  <%= link_to outfit_favorites_path(@outfit), method: :post do %>
+                    <button type="button" class="btn btn-outline-secondary"><i class="fa-regular fa-heart"></i><%= @outfit.favorites.count %></button>
+                  <% end %>
+              <% end %>
+              <button type="button" class="btn btn-outline-secondary"><i class="fa-regular fa-comment-dots"></i><%= @outfit.comments.count %></button>
+              </li>
+              <li class="list-group-item">
+              <% @outfit.comments.each do |comment| %>
+                <p>
+                  <%= image_tag comment.customer.profile_image, size: "30x30" %>
+                  <%= comment.customer.nickname %>
+                </p>
+                <%= comment.comment %>
+                <p class="small text-muted"><%= comment.created_at.strftime('%Y/%m/%d') %>
+                <% if comment.customer == current_customer %>
+                  <%= link_to "削除", outfit_comment_path(comment.outfit, comment), method: :delete, class: "text-danger" %>
+                <% end %>
+                </p>
+              <% end %>
+              <%= form_with model: [@outfit, @comment] do |f| %>
+              <div class="form-group" >
+                <%= f.text_area :comment, placeholder: "コメントをここに", class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <%= f.submit "送信する", class: "btn btn-info" %>
+              </div>
+              <% end %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mt-5">
+      <div class="card"  style="height: 40rem;">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><%= @outfit.title %></li>
+          <li class="list-group-item"><%= @outfit.caption %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div>
-  <p>コメント件数：<%= @outfit.comments.count %></p>
-  <% @outfit.comments.each do |comment| %>
-    <%= comment.customer.nickname %>
-    <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
-    <% if comment.customer == current_customer %>
-      <%= link_to "削除", outfit_comment_path(comment.outfit, comment), method: :delete %>
-    <% end %>
-  <% end %>
-</div>
-<div>
-  <%= form_with model: [@outfit, @comment] do |f| %>
-    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
-    <%= f.submit "送信する" %>
-  <% end %>
-</div>
-</div>
+<% if @outfit.customer == current_customer %>
+   <%= link_to "削除", outfit_path(@outfit), method: :delete %>
+<% end %>
