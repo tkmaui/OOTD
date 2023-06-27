@@ -1,8 +1,8 @@
 <div class="container px-5 px-sm-0">
   <div class="row">
-    <div class="col-md-6 mt-5">
+    <div class="col-md-7 mt-5">
       <div class="card">
-        <%= image_tag @outfit.image, size: "553x700" %>
+        <%= image_tag @outfit.image, size: "651x700" %>
         <div class="card-body">
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
@@ -18,6 +18,7 @@
               <button type="button" class="btn btn-outline-secondary"><i class="fa-regular fa-comment-dots"></i><%= @outfit.comments.count %></button>
               </li>
               <li class="list-group-item">
+                <p class="font-weight-bold offset-md-5">コメント</p>
               <% @outfit.comments.each do |comment| %>
                 <p>
                   <%= image_tag comment.customer.profile_image, size: "30x30" %>
@@ -43,17 +44,20 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6 mt-5">
+    <div class="col-md-5 mt-5">
       <div class="card"  style="height: 40rem;">
         <ul class="list-group list-group-flush">
           <li class="list-group-item"><%= @outfit.title %></li>
           <li class="list-group-item"><%= @outfit.caption %></li>
         </ul>
       </div>
+      <% if @outfit.customer == current_customer %>
+        <%= link_to "編集", edit_outfit_path(@outfit.id), class: "btn btn-success" %>
+      <% end %>
+      <% if @outfit.customer == current_customer %>
+        <%= link_to "削除", outfit_path(@outfit), method: :delete, class: "btn btn-danger" %>
+      <% end %>
     </div>
   </div>
 </div>
 
-<% if @outfit.customer == current_customer %>
-   <%= link_to "削除", outfit_path(@outfit), method: :delete %>
-<% end %>
