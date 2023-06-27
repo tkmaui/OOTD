@@ -1,13 +1,21 @@
-
-<%= @customer.nickname %>
-<%= @customer.gender %>
-<%= @customer.tall %>
-<%= @customer.introduction %>
-<% if @customer == current_customer %>
-  <%= link_to "編集", edit_customer_path(@customer.id) %>
-<% end %>
-
-<ul class="nav nav-tabs" role="tablist">
+<div class="container">
+  <div class="row">
+    <div class="col-md-3 mt-5">
+      <%= image_tag @customer.get_profile_image(200,400), class:" rounded-circle" %>
+      <% if @customer == current_customer %>
+        <%= link_to "編集する", edit_customer_path(@customer.id), class:"btn btn-outline-secondary btn-block mt-3" %>
+      <% end %>
+    </div>
+    <div class="col-md-9 mt-5">
+      <h3><%= @customer.nickname %></h3>
+      <p class="small text-muted">
+        <%= @customer.gender %> |
+        <%= @customer.tall %>cm
+      </p>
+      <%= @customer.introduction %>
+    </div>
+   </div>
+<ul class="nav nav-tabs mt-5" role="tablist">
   <li class="nav-item">
     <a class="nav-link active" id="item1-tab" data-toggle="tab" href="#item1" role="tab" aria-controls="item1" aria-selected="true">コーディネート一覧</a>
   </li>
@@ -21,14 +29,23 @@
 
 <div class="tab-content">
   <div class="tab-pane fade show active" id="item1" role="tabpanel" aria-labelledby="item1-tab">
+    <div class="row">
     <% @outfits.each do |outfit| %>
-      <div>
-        <%= image_tag outfit.image, size: "250x200" %>
-          <p>タイトル：<%= outfit.title %></p>
-          <p>説明：<%= outfit.caption %></p>
-          <%= link_to "詳細", outfit_path(outfit.id) %>
+       <div class="pr-3 pb-5">
+        <div class="card">
+          <%= link_to outfit_path(outfit.id) do %>
+            <%= image_tag outfit.image, size: "267x370" %>
+          <% end %>
+          <div class="card-body">
+            <button type="button" class="btn btn-outline-secondary"><i class="fa-solid fa-heart"></i><%= outfit.favorites.count %></button>
+            <%= link_to outfit_path(outfit.id) do %>
+              <button type="button" class="btn btn-outline-secondary"><i class="fa-regular fa-comment-dots"></i><%= outfit.comments.count %></button>
+            <% end %>
+          </div>
+        </div>
        </div>
      <% end %>
+    </div>
     </div>
   <div class="tab-pane fade" id="item2" role="tabpanel" aria-labelledby="item2-tab">
     <% @questions.each do |question| %>
@@ -41,12 +58,23 @@
     <% end %>
   </div>
   <div class="tab-pane fade" id="item3" role="tabpanel" aria-labelledby="item3-tab">
-    <p>いいねした投稿一覧</p>
+    <div class="row">
     <% @favorite_outfits.each do |outfit| %>
-    <%= image_tag outfit.image, size: "250x200" %>
-    <%= outfit.title %>
-    <%= outfit.caption %>
-    <%= link_to "詳細", outfit_path(outfit.id) %>
+      <div class="pr-3 pb-5">
+        <div class="card">
+          <%= link_to outfit_path(outfit.id) do %>
+            <%= image_tag outfit.image, size: "267x370" %>
+          <% end %>
+          <div class="card-body">
+            <button type="button" class="btn btn-outline-secondary"><i class="fa-solid fa-heart"></i><%= outfit.favorites.count %></button>
+            <%= link_to outfit_path(outfit.id) do %>
+              <button type="button" class="btn btn-outline-secondary"><i class="fa-regular fa-comment-dots"></i><%= outfit.comments.count %></button>
+            <% end %>
+          </div>
+        </div>
+       </div>
     <% end %>
+    </div>
   </div>
+ </div>
 </div>

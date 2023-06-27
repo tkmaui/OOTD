@@ -1,8 +1,18 @@
-<% @customers.each do |customer| %>
-<div>
-  <%= image_tag customer.get_profile_image(100,100) %>
-  <p>ニックネーム：<%= customer.nickname %></p>
+<div class="container">
+  <div class="row mt-5">
+    <% @customers.each do |customer| %>
+      <div class="pr-5 pb-5">
+        <div class="card">
+          <%= link_to customer_path(customer.id) do %>
+            <%= image_tag customer.get_profile_image(400,400) %>
+          <% end %>
+        <div class="card-body">
+          <p><%= customer.nickname %></p>
+          <p><%= customer.gender %></p>
+        </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
-<%= link_to "詳細", customer_path(customer.id) %>
-<% end %>
 

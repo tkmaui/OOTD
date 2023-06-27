@@ -6,6 +6,10 @@
         <div class="card-body">
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
+              <p>
+                <%= image_tag @outfit.customer.get_profile_image(30,30), class:" rounded-circle" %>
+                <%= @outfit.customer.nickname %>
+              </p>
               <% if @outfit.favorited_by?(current_customer) %>
                   <%= link_to outfit_favorites_path(@outfit), method: :delete do %>
                     <button type="button" class="btn btn-outline-secondary"><i class="fa-solid fa-heart"></i><%= @outfit.favorites.count %></button>
@@ -45,7 +49,7 @@
       </div>
     </div>
     <div class="col-md-5 mt-5">
-      <div class="card"  style="height: 40rem;">
+      <div class="card" style="height: 40rem;">
         <ul class="list-group list-group-flush">
           <li class="list-group-item"><%= @outfit.title %></li>
           <li class="list-group-item"><%= @outfit.caption %></li>
