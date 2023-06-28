@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   root to: "homes#top"
   get '/about' => 'homes#about'
   resources :questions do
-   resources :answers, only: [:create, :destroy]
+   resources :answers, only: [:new, :create, :destroy]
    resource :question_favorites, only: [:create, :destroy]
   end
   resources :outfits do

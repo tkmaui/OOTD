@@ -1,4 +1,9 @@
 class Public::AnswersController < ApplicationController
+ def new
+  @answer = current_customer.answers.new
+  @question = Question.find(params[:question_id])
+ end
+
  def create
     question = Question.find(params[:question_id])
     answer = current_customer.answers.new(answer_params)

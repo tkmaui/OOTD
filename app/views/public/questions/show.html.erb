@@ -1,39 +1,71 @@
-<div>
-  <%= image_tag @question.image, size: "250x200" %>
-  <p>タイトル：<%= @question.title %></p>
-  <p>説明：<%= @question.caption %></p>
-  <% if @question.customer == current_customer %>
-    <%= link_to "削除", question_path(@question), method: :delete %>
-  <% end %>
-  <% if @question.favorited_by?(current_customer) %>
-    <p>
-      <%= link_to question_question_favorites_path(@question), method: :delete do %>
-        ♥<%= @question.question_favorites.count %> いいね
-      <% end %>
-    </p>
-    <% else %>
-    <p>
-      <%= link_to question_question_favorites_path(@question), method: :post do %>
-        ♡<%= @question.question_favorites.count %> いいね
-      <% end %>
-    </p>
-  <% end %>
-</div>
+<div class="container">
+  <div class="row mt-5">
+    <div class="card" style="width: 50rem;">
+      <div class="card-body">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <p><%= @question.title %></p>
+        </li>
+        <li class="list-group-item">
+          <p><%= @question.caption %></p>
+          <% if @question.image.persisted? %>
+            <%= image_tag @question.image, size: "250x200" %>
+          <% end %>
+        </li>
+      </div>
+        <li class="list-group-item">
+          <p class="text-right">
+            <% if @question.favorited_by?(current_customer) %>
+                <%= link_to question_question_favorites_path(@question), method: :delete, class: "btn btn-outline-secondary" do %>
+                  <i class="fa-solid fa-heart"></i><%= @question.question_favorites.count %>
+                <% end %>
+            <% else %>
+                <%= link_to question_question_favorites_path(@question), method: :post, class: "btn btn-outline-secondary" do %>
+                  <i class="fa-regular fa-heart"></i><%= @question.question_favorites.count %>
+                <% end %>
+            <% end %>
+            <%= link_to "回答する", new_question_answer_path(@question.id), class: "btn btn-outline-secondary text-primary" %>
+            <% if @question.customer == current_customer %>
+              <%= link_to "編集", edit_question_path(@question), class: "btn btn-outline-secondary text-success" %>
+              <%= link_to "削除", question_path(@question), method: :delete, class: "btn btn-outline-secondary text-danger" %>
+            <% end %>
+          </p>
+          <P class="text-right small text-muted">
+            <%= @question.created_at.strftime('%Y/%m/%d') %>
+          </p>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <h4>回答件数：<%= @question.answers.count %></h4>
+  </div>
+  <div class="row">
+    <% @question.answers.each do |answer| %>
+      <div class="card mt-5" style="width: 50rem;">
+        <p>
+          <% if answer.customer.profile_image.persisted? %>
+            <%= image_tag answer.customer.profile_image, size: "30x30", class:" rounded-circle" %>
+          <% end %>
+          <%= answer.customer.nickname %>
+        </p>
+        <%= answer.answer %>
+        <%# if answer.image.persisted? %>
+          <%#= image_tag answer.image, size: "100x100" %>
+        <%# end %>
 
-<div>
-  <p>コメント件数：<%= @question.answers.count %></p>
-  <% @question.answers.each do |answer| %>
-
-    <%= answer.customer.nickname %>
-    <%= answer.created_at.strftime('%Y/%m/%d') %><%= answer.answer %>
-    <% if answer.customer == current_customer %>
-      <%= link_to "削除", question_answer_path(answer.question, answer), method: :delete %>
+        <P class="text-right small text-muted">
+          <%= answer.created_at.strftime('%Y/%m/%d') %>
+          <% if answer.customer == current_customer %>
+          <%= link_to "削除", question_answer_path(answer.question, answer), method: :delete, class: "text-danger" %>
+          <% end %>
+          </P>
+      </div>
     <% end %>
-  <% end %>
+  </div>
 </div>
-<div>
-  <%= form_with model: [@question, @answer] do |f| %>
-    <%= f.text_area :answer, rows: '5', placeholder: "コメントをここに" %>
-    <%= f.submit "送信する" %>
-  <% end %>
-</div>
+
+
+
+
+
