@@ -9,15 +9,11 @@
       <% @outfits.each do |outfit| %>
       <div class="pr-4 pb-5">
         <div class="card">
-          <% if outfit.image.persisted? %>
             <%= link_to outfit_path(outfit.id) do %>
               <%= image_tag outfit.image, size: "260x400" %>
             <% end %>
-          <% end %>
           <div class="card-body">
-            <% if outfit.customer.profile_image.persisted? %>
-              <%= image_tag outfit.customer.profile_image, size: "35x35", class:" rounded-circle" %>
-            <% end %>
+              <%= image_tag outfit.customer.get_profile_image(35,35), size: "35x35", class:" rounded-circle" %>
             <span><%= outfit.customer.nickname %> ｜ </span>
             <span><%= link_to "#{outfit.comments.count} コメント", outfit_path(outfit.id), class:"text-dark" %></span>
           </div>
@@ -33,10 +29,8 @@
         <div crass="row">
           <div class="mt-3">
           <%= link_to customer_path(customer.id) do %>
-            <% if customer.profile_image.persisted? %>
-              <%= image_tag customer.profile_image, size: "30x30", class:" rounded-circle" %>
+              <%= image_tag customer.get_profile_image(30,30), size: "30x30", class:" rounded-circle" %>
               <%= customer.nickname %>
-            <% end %>
           <% end %>
           </div>
         </div>

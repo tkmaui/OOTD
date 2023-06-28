@@ -4,9 +4,7 @@
       <div class="pr-5 pb-5">
         <div class="card" style="height: 16rem;">
           <%= link_to customer_path(customer.id) do %>
-            <% if customer.profile_image.persisted? %>
-              <%= image_tag customer.profile_image, size: "160x160" %>
-            <% end %>
+            <%= image_tag customer.get_profile_image(160,160), size: "160x160" %>
           <% end %>
         <div class="card-body">
           <p class="text-center"><%= customer.nickname %></p>

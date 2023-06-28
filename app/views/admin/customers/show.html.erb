@@ -1,9 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-3 mt-5">
-      <% if @customer.profile_image.persisted? %>
-        <%= image_tag @customer.profile_image, size: "200x200", class:" rounded-circle" %>
-      <% end %>
+        <%= image_tag @customer.get_profile_image(200,200), size: "200x200", class:" rounded-circle" %>
       <%= link_to "編集する", edit_admin_customer_path(@customer.id), class:"btn btn-outline-secondary btn-block mt-3" %>
     </div>
     <div class="col-md-9 mt-5">
@@ -31,9 +29,7 @@
        <div class="pr-3 pb-5 mt-3">
         <div class="card">
           <%= link_to admin_outfit_path(outfit.id) do %>
-            <% if outfit.image.persisted? %>
               <%= image_tag outfit.image, size: "267x370" %>
-            <% end %>
           <% end %>
           <div class="card-body">
             <button type="button" class="btn btn-outline-secondary"><i class="fa-solid fa-heart"></i><%= outfit.favorites.count %></button>

@@ -1,9 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-3 mt-5">
-      <% if @customer.profile_image.persisted? %>
-        <%= image_tag @customer.profile_image, size: "200x200", class:" rounded-circle" %>
-      <% end %>
+      <%= image_tag @customer.get_profile_image(200,200), size: "200x200", class:" rounded-circle" %>
       <% if @customer == current_customer %>
         <%= link_to "編集する", edit_customer_path(@customer.id), class:"btn btn-outline-secondary btn-block mt-3" %>
       <% end %>

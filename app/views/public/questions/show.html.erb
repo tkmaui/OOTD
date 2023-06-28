@@ -44,17 +44,15 @@
     <% @question.answers.each do |answer| %>
       <div class="card mt-5" style="width: 50rem;">
         <p>
-          <% if answer.customer.profile_image.persisted? %>
-            <%= image_tag answer.customer.profile_image, size: "30x30", class:" rounded-circle" %>
-          <% end %>
+          <%= image_tag answer.customer.get_profile_image(30,30), size: "30x30", class:" rounded-circle" %>
           <%= answer.customer.nickname %>
         </p>
         <%= answer.answer %>
-        <%# if answer.image.persisted? %>
-          <%#= image_tag answer.image, size: "100x100" %>
-        <%# end %>
+        <% if answer.image.attached? %>
+          <%= image_tag answer.image, size: "100x100" %>
+        <% end %>
 
-        <P class="text-right small text-muted">
+       <P class="text-right small text-muted">
           <%= answer.created_at.strftime('%Y/%m/%d') %>
           <% if answer.customer == current_customer %>
           <%= link_to "削除", question_answer_path(answer.question, answer), method: :delete, class: "text-danger" %>

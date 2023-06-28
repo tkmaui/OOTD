@@ -24,6 +24,6 @@ class Public::AnswersController < ApplicationController
  private
 
   def answer_params
-    params.require(:answer).permit(:answer)
+    params.require(:answer).permit(:answer, :image)
   end
 end

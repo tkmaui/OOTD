@@ -17,9 +17,7 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
               <p>
-                <% if @outfit.customer.profile_image.persisted? %>
-                  <%= image_tag @outfit.customer.profile_image, size: "30x30", class:" rounded-circle" %>
-                <% end%>
+                <%= image_tag @outfit.customer.get_profile_image(30,30), size: "30x30", class:" rounded-circle" %>
                 <%= @outfit.customer.nickname %>
               </p>
               <% if @outfit.favorited_by?(current_customer) %>
@@ -37,7 +35,7 @@
                 <p class="font-weight-bold offset-md-5">コメント</p>
               <% @outfit.comments.each do |comment| %>
                 <p>
-                  <%= image_tag comment.customer.profile_image, size: "30x30", class:" rounded-circle" %>
+                  <%= image_tag comment.customer.get_profile_image(30,30), size: "30x30", class:" rounded-circle" %>
                   <%= comment.customer.nickname %>
                 </p>
                 <%= simple_format(comment.comment) %>

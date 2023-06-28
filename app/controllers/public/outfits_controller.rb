@@ -4,7 +4,7 @@ class Public::OutfitsController < ApplicationController
   end
 
   def index
-    @outfits = Outfit.page(params[:page]).per(3)
+    @outfits = Outfit.page(params[:page]).per(9)
     @customers = Customer.all
   end
 
