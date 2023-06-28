@@ -1,4 +1,5 @@
 class Public::QuestionFavoritesController < ApplicationController
+  before_action :authenticate_customer!, except: [:top, :about, :sign_up, :sign_in]
   def create
     question = Question.find(params[:question_id])
     question_favorite = current_customer.question_favorites.new(question_id: question.id)

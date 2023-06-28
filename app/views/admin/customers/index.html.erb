@@ -1,7 +1,19 @@
-<% @customers.each do |customer| %>
-<div>
-  <%= image_tag customer.get_profile_image(100,100) %>
-  <p>ニックネーム：<%= customer.nickname %></p>
+<div class="container">
+  <div class="row mt-5">
+    <% @customers.each do |customer| %>
+      <div class="pr-5 pb-5">
+        <div class="card" style="height: 16rem;">
+          <%= link_to admin_customer_path(customer.id) do %>
+            <% if customer.profile_image.persisted? %>
+              <%= image_tag customer.profile_image, size: "160x160" %>
+            <% end %>
+          <% end %>
+        <div class="card-body">
+          <p class="text-center"><%= customer.nickname %></p>
+          <p class="small text-muted text-center"><%= customer.gender %>|<%= customer.tall %></p>
+        </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
-<%= link_to "詳細", admin_customer_path(customer.id) %>
-<% end %>

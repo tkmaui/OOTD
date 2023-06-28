@@ -12,6 +12,8 @@ class Customer < ApplicationRecord
   has_many :answers, dependent: :destroy
   has_one_attached :profile_image
 
+  validates :nickname, presence: true
+
   enum gender: {その他: 0 , 男性: 1, 女性: 2}
 
   def get_profile_image(width, height)

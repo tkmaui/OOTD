@@ -13,6 +13,9 @@ Rails.application.routes.draw do
   resources :questions do
    resources :answers, only: [:new, :create, :destroy]
    resource :question_favorites, only: [:create, :destroy]
+   collection do
+      get 'search_for'
+   end
   end
   resources :outfits do
    resources :comments, only: [:create, :destroy]

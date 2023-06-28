@@ -1,4 +1,5 @@
 class Admin::OutfitsController < ApplicationController
+  before_action :authenticate_admin!, except: [:top, :about]
   def index
     @outfits = Outfit.all
   end

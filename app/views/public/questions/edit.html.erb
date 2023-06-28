@@ -1,4 +1,12 @@
 <div class="container">
+  <% if @question.errors.any? %>
+    <%= @question.errors.count %>件のエラーが発生しました
+    <ul>
+      <% @question.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
   <div class="row">
     <h3 class="col-md-3 mt-5 offset-md-2">質問編集</h3>
   </div>

@@ -1,4 +1,5 @@
 class Admin::QuestionsController < ApplicationController
+  before_action :authenticate_admin!, except: [:top, :about]
   def index
     @questions = Question.all
   end

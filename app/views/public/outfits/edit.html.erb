@@ -1,4 +1,12 @@
 <div class="container">
+  <% if @outfit.errors.any? %>
+    <%= @outfit.errors.count %>件のエラーが発生しました
+    <ul>
+      <% @outfit.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
   <div class="row">
     <h3 class="col-md-3 mt-5 offset-md-2">コーディネート編集</h3>
   </div>

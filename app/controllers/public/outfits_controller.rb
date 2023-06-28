@@ -4,7 +4,7 @@ class Public::OutfitsController < ApplicationController
   end
 
   def index
-    @outfits = Outfit.all
+    @outfits = Outfit.page(params[:page]).per(3)
     @customers = Customer.all
   end
 
@@ -20,14 +20,20 @@ class Public::OutfitsController < ApplicationController
   def create
     @outfit = Outfit.new(outfit_params)
     @outfit.customer_id = current_customer.id
-    @outfit.save
-    redirect_to outfits_path
+    if @outfit.save
+       redirect_to outfits_path
+    else
+      render :new
+    end
   end
 
   def update
     @outfit = Outfit.find(params[:id])
-    @outfit.update(outfit_params)
-    redirect_to outfits_path
+    if @outfit.update(outfit_params)
+       redirect_to outfits_path
+    else
+       render :edit
+    end
   end
 
   def destroy

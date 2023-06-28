@@ -1,2 +1,26 @@
-<h1>Public::Homes#top</h1>
-<p>Find me in app/views/public/homes/top.html.erb</p>
+<div class="container">
+  <div class="row">
+    <h3 class="col-md-3 mt-5">人気投稿</h3>
+  </div>
+  <div class="row mt-5">
+    <% @outfits.each do |outfit| %>
+      <div class="pr-4 pb-5">
+        <div class="card">
+          <% if outfit.image.persisted? %>
+            <%= link_to admin_outfit_path(outfit.id) do %>
+              <%= image_tag outfit.image, size: "250x380" %>
+            <% end %>
+          <% end %>
+          <div class="card-body">
+            <% if outfit.customer.profile_image.persisted? %>
+              <%= image_tag outfit.customer.profile_image, size: "35x35", class:" rounded-circle" %>
+            <% end %>
+            <span><%= outfit.customer.nickname %> ｜ </span>
+            <span><%= link_to "#{outfit.comments.count} コメント", admin_outfit_path(outfit.id), class:"text-dark" %></span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <%=link_to "もっと見る", outfits_path, class: "btn btn-outline-secondary" %>
+</div>

@@ -1,5 +1,15 @@
 <div class="container">
   <div class="row">
+    <% if @customer.errors.any? %>
+    <%= @customer.errors.count %>件のエラーが発生しました
+    <ul>
+      <% @customer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  </div>
+  <div class="row">
     <h3 class="col-md-3 mt-5 offset-md-2">プロフィール編集</h2>
   </div>
   <div class="row">
@@ -11,7 +21,7 @@
         </div>
         <div class="form-group">
           <label class="col-md-3">ニックネーム</label>
-          <%= f.text_field :nickname, placeholder: "ニックネーム" %>
+          <%= f.text_field :nickname, placeholder: "ニックネーム", class: "form-control" %>
         </div>
         <div class="form-group">
           <label class="col-md-3">性別</label>

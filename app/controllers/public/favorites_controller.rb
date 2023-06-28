@@ -1,4 +1,5 @@
 class Public::FavoritesController < ApplicationController
+  before_action :authenticate_customer!, except: [:top, :about, :sign_up, :sign_in]
   def create
     outfit = Outfit.find(params[:outfit_id])
     favorite = current_customer.favorites.new(outfit_id: outfit.id)

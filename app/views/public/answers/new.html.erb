@@ -1,4 +1,12 @@
 <div class="container">
+  <% if @answer.errors.any? %>
+    <%= @answer.errors.count %>件のエラーが発生しました
+    <ul>
+      <% @answer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
   <div class="row">
     <div class="col-md-6 offset-md-3 mt-5">
     <%= form_with model: [@question, @answer] do |f| %>

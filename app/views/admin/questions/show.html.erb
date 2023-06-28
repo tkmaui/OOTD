@@ -1,16 +1,52 @@
-<%= image_tag @question.image, size: "250x200" %>
-<p>タイトル：<%= @question.title %></p>
-<p>説明：<%= @question.caption %></p>
-<%= link_to "削除", admin_question_path(@question.id), method: :delete %>
+<div class="container">
+  <div class="row mt-5">
+    <div class="card" style="width: 50rem;">
+      <div class="card-body">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <p><%= @question.title %></p>
+        </li>
+        <li class="list-group-item">
+          <p><%= @question.caption %></p>
+          <% if @question.image.persisted? %>
+            <%= image_tag @question.image, size: "250x200" %>
+          <% end %>
+        </li>
+      </div>
+        <li class="list-group-item">
+          <p class="text-right">
+              <i class="fa-regular fa-heart"></i><%= @question.question_favorites.count %>
+              <%= link_to "削除", admin_question_path(@question), method: :delete, class: "btn btn-outline-secondary text-danger" %>
+          </p>
+          <P class="text-right small text-muted">
+            <%= @question.created_at.strftime('%Y/%m/%d') %>
+          </p>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <h4>回答件数：<%= @question.answers.count %></h4>
+  </div>
+  <div class="row">
+    <% @question.answers.each do |answer| %>
+      <div class="card mt-5" style="width: 50rem;">
+        <p>
+          <% if answer.customer.profile_image.persisted? %>
+            <%= image_tag answer.customer.profile_image, size: "30x30", class:" rounded-circle" %>
+          <% end %>
+          <%= answer.customer.nickname %>
+        </p>
+        <%= answer.answer %>
+        <%# if answer.image.persisted? %>
+          <%#= image_tag answer.image, size: "100x100" %>
+        <%# end %>
 
-<p>♡<%= @question.question_favorites.count %> いいね</p>
-
-<div>
-  <p>コメント件数：<%= @question.answers.count %></p>
-  <% @question.answers.each do |answer| %>
-
-    <%= answer.customer.nickname %>
-    <%= answer.created_at.strftime('%Y/%m/%d') %><%= answer.answer %>
-    <%= link_to "削除", admin_question_answer_path(answer.question, answer), method: :delete %>
-  <% end %>
+        <P class="text-right small text-muted">
+          <%= answer.created_at.strftime('%Y/%m/%d') %>
+          <%= link_to "削除", admin_question_answer_path(answer.question, answer), method: :delete, class: "text-danger" %>
+          </P>
+      </div>
+    <% end %>
+  </div>
 </div>
