@@ -1,10 +1,34 @@
-<% @questions.each do |question| %>
-<div>
-  <%= image_tag question.image, size: "250x200" %>
-  <p>タイトル：<%= question.title %></p>
-  <p>説明：<%= question.caption %></p>
-  <p>♡<%= question.question_favorites.count %> いいね</p>
-  <p><%= link_to "#{question.answers.count} コメント", admin_question_path(question.id) %></p>
+
+<div class="containe px5 px-sm">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <table class="table table-hover table-inverse">
+        <thead>
+          <tr>
+            <th>質問タイトル</th>
+            <th>質問詳細</th>
+            <th>返信数</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @questions.each do |question| %>
+            <tr>
+              <td>
+                <%= truncate(question.title, :length => 20) %>
+              </td>
+              <td>
+                <%= link_to "詳細",admin_question_path(question.id), class: "btn btn-primary" %>
+              </td>
+              <td>
+                <%= link_to admin_question_path(question.id), class: "btn btn-outline-secondary" do %>
+                  <i class="fa-regular fa-comment-dots"></i><%= question.answers.count %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+     </div>
+  </div>
 </div>
-<%= link_to "詳細",admin_question_path(question.id) %>
-<% end %>

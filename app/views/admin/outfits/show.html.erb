@@ -1,14 +1,48 @@
-<%= image_tag @outfit.image, size: "250x200" %>
-  <p>タイトル：<%= @outfit.title %></p>
-  <p>説明：<%= @outfit.caption %></p>
-  <%= link_to "削除", admin_outfit_path(@outfit.id), method: :delete %>
-  <p>♡<%= @outfit.favorites.count %> いいね</p>
-
-  <div>
-  <p>コメント件数：<%= @outfit.comments.count %></p>
-  <% @outfit.comments.each do |comment| %>
-    <%= comment.customer.nickname %>
-    <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
-    <%= link_to "削除", admin_outfit_comment_path(comment.outfit, comment), method: :delete %>
-  <% end %>
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    <div class="col-md-7 mt-5">
+      <div class="card">
+        <% if @outfit.image.persisted? %>
+          <%= image_tag @outfit.image, size: "651x700" %>
+        <% end %>
+        <div class="card-body">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <p>
+                <% if @outfit.customer.profile_image.persisted? %>
+                  <%= image_tag @outfit.customer.profile_image, size: "30x30", class:" rounded-circle" %>
+                <% end%>
+                <%= @outfit.customer.nickname %>
+              </p>
+              <i class="fa-regular fa-heart"></i><%= @outfit.favorites.count %>
+              <i class="fa-regular fa-comment-dots"></i><%= @outfit.comments.count %>
+              </li>
+              <li class="list-group-item">
+                <p class="font-weight-bold offset-md-5">コメント</p>
+              <% @outfit.comments.each do |comment| %>
+                <p>
+                  <%= image_tag comment.customer.profile_image, size: "30x30", class:" rounded-circle" %>
+                  <%= comment.customer.nickname %>
+                </p>
+                <%= simple_format(comment.comment) %>
+                <p class="small text-muted"><%= comment.created_at.strftime('%Y/%m/%d') %>
+                  <%= link_to "削除", admin_outfit_comment_path(comment.outfit, comment), method: :delete, class: "text-danger" %>
+                </p>
+              <% end %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5 mt-5">
+      <div class="card" style="height: 40rem;">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><%= simple_format(@outfit.title) %></li>
+          <li class="list-group-item"><%= simple_format(@outfit.caption) %></li>
+        </ul>
+      </div>
+        <%= link_to "削除", admin_outfit_path(@outfit), method: :delete, class: "btn btn-danger" %>
+    </div>
+  </div>
 </div>
+
